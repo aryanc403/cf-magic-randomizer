@@ -11,8 +11,8 @@
 // @grant        none
 // ==/UserScript==
 
-const permutateUsernames = true;
-// const permutateUsernames = false;
+// const permutateUsernames = true;
+const permutateUsernames = false;
 const userColorsCache = {};
 var newUsernameCache = {};
 
