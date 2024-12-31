@@ -11,7 +11,10 @@
 // @grant        none
 // ==/UserScript==
 
+const permutateUsernames = true;
+// const permutateUsernames = false;
 const userColorsCache = {};
+var newUsernameCache = {};
 
 const colorData = [
     {
@@ -113,7 +116,6 @@ function makeLegendary(user) {
 
 const getRandomColor = () => {
     const percentIdx = Math.floor(Math.random() * 100);
-    console.log('percentIdx',percentIdx);
     for(let idx=0;idx<colorData.length;idx++){
         if(percentIdx<colorData[idx].precentCutoff){
            return colorData[idx];
@@ -139,8 +141,13 @@ const updateColor = (user,newColor) => {
      }
 }
 
+const getUsername = (user) => {
+    return user.attributes["href"].textContent.slice(9);
+}
+
 const fixUser = (user) => {
-    const username = user.attributes["href"].textContent.slice(9);
+    const username = getUsername(user);
+    const newUsername = (username in newUsernameCache?newUsernameCache[username]:username);
     const newColor = getColor(username);
 
     var currentColor = "";
@@ -153,17 +160,52 @@ const fixUser = (user) => {
     user.classList.replace(currentColor, newColor.color);
     user.title = (_cfLocaleGlobal ? newColor.enTitle : newColor.ruTitle) + " " + user.textContent;
     updateColor(user,newColor);
+    if (newUsername !== username) {
+        user["href"]="/profile/"+newUsername;
+        user.textContent=newUsername;
+    }
     return user;
 }
 
-const populateUsernamesPermutation = (users) => {
+function shuffleArray(array) {
+  let currentIndex = array.length;
 
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+}
+
+const populateUsernamesPermutation = (users) => {
+    var usernamesDictionary = {};
+    for (let i = 0; i < users.length; ++i) {
+        usernamesDictionary[getUsername(users[i])]=1;
+    }
+    const usernames = Object.keys(usernamesDictionary);
+    var shuffledUsernames = Object.keys(usernamesDictionary);
+    shuffleArray(shuffledUsernames);
+    var newUsernameCacheLocal = {}
+    for (let i = 0; i < users.length; ++i) {
+        newUsernameCacheLocal[usernames[i]]=shuffledUsernames[i];
+    }
+    newUsernameCache=newUsernameCacheLocal;
+    console.log('newUsernameCache',newUsernameCache);
 }
 
 const randomizeMagic = () => {
     const CFLocale = (document.getElementsByClassName("menu-list-container")[0].children[0].children[0].textContent == "Home");
     _cfLocaleGlobal = CFLocale
     var users = document.getElementsByClassName('rated-user');
+    if(permutateUsernames) {
+        populateUsernamesPermutation(users);
+    }
     for (var i = 0; i < users.length; ++i) {
         users[i]=fixUser(users[i]);
     }
