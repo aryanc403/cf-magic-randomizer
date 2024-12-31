@@ -6,7 +6,7 @@ Additionally, it also allows one to randomize handles.
 ## Download instructions
 
 1. Install Tampermonkey for your browser. ([Instructions](https://tampermonkey.net/)).
-2. [**Click this link**](https://github.com/aryanc403/cf-magic-randomizer/raw/main/magic-randomizer.user.js) to install CF Magic Randomizer userscript.
+2. [**Click this link**](https://github.com/aryanc403/cf-magic-randomizer/raw/main/src/magic-randomizer.user.js) to install CF Magic Randomizer userscript.
 
 3. Reload Codeforces.
 
