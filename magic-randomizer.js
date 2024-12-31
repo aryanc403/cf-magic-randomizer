@@ -196,7 +196,6 @@ const populateUsernamesPermutation = (users) => {
         newUsernameCacheLocal[usernames[i]]=shuffledUsernames[i];
     }
     newUsernameCache=newUsernameCacheLocal;
-    console.log('newUsernameCache',newUsernameCache);
 }
 
 const randomizeMagic = () => {
