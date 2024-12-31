@@ -3,6 +3,13 @@
 A userscript to randomize color of codeforces handles.
 Additionally, it also allows one to randomize handles.
 
+## Download instructions
+
+1. Install Tampermonkey for your browser. ([Instructions](https://tampermonkey.net/)).
+2. [**Click this link**](https://github.com/aryanc403/cf-magic-randomizer/raw/main/magic-randomizer.user.js) to install CF Magic Randomizer userscript.
+
+3. Reload Codeforces.
+
 ## Changing colors distribution -
 Change `precentCutoff` variable in `colorData` constant.
 
@@ -22,3 +29,6 @@ Set `permutateUsernames` variable to `true`
 
 ![Random ranklist](/images/random-ranklist.jpg)
 ![Shuffled usernames](/images/random-usernames.jpg)
+
+## Thanks
+[Golovanov399](https://github.com/Golovanov399) for [antimagic](https://github.com/Golovanov399/antimagic)
