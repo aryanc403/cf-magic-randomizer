@@ -98,13 +98,6 @@ pack_chrome() {
   # Add the polyfill as content script.
   jq_manifest_replace ".content_scripts[].js |= [\"${polyfill_path}\"] + ." manifest.json
 
-  # Final touches to manifest.json.
-  jq_manifest_replace 'del(.browser_specific_settings) |
-      if .options_ui.browser_style
-        then .options_ui.chrome_style = .options_ui.browser_style else . end |
-      del (.options_ui.browser_style) |
-      del (.browser_action.browser_style)' manifest.json
-
   if [[ -n "${release_dir}" ]]; then
     # Prepare the zip.
     rm -f "../../${release_dir}/${chrome_zip}"
