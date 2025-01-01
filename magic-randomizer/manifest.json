@@ -17,8 +17,11 @@
     "content_scripts": [
       {
         "matches": ["*://*.codeforces.com/*"],
-        "js": ["src/content/content.js"]
+        "js": ["src/content/content_script.js"]
       }
+    ],
+    "web_accessible_resources": [
+      "src/*"
     ],
     "options_ui": {
       "page": "src/options/options.html",

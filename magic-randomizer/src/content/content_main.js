@@ -27,81 +27,80 @@ function makeLegendary(user) {
     }
 }
 
-const getColors = () => {
-    const ratingDistribution = settings.ratingDistribution()
-    console.log('ratingDistribution',ratingDistribution);
+const getColors = async () => {
+    const ratingDistribution = await settings.ratingDistribution()
     return [
         {
             color:"user-4000",
             enTitle:"Tourist",
             ruTitle:"Tourist",
-            precentCutoff:ratingDistribution.touristPercent,
+            precentCutoff:parseFloat(ratingDistribution.touristPercent),
         },
         {
             color:"user-legendary",
             enTitle:"Legendary Grandmaster",
             ruTitle:"Легендарный гроссмейстер",
-            precentCutoff:ratingDistribution.lgmPercent,
+            precentCutoff:parseFloat(ratingDistribution.lgmPercent),
         },
         {
             color:"user-red",
             enTitle:"International Grandmaster",
             ruTitle:"Международный гроссмейстер",
-            precentCutoff:ratingDistribution.igmPercent,
+            precentCutoff:parseFloat(ratingDistribution.igmPercent),
         },
         {
             color:"user-red",
             enTitle:"Grandmaster",
             ruTitle:"Гроссмейстер",
-            precentCutoff:ratingDistribution.gmPercent,
+            precentCutoff:parseFloat(ratingDistribution.gmPercent),
         },
         {
             color:"user-orange",
             enTitle:"International master",
             ruTitle:"Международный мастер",
-            precentCutoff:ratingDistribution.imPercent,
+            precentCutoff:parseFloat(ratingDistribution.imPercent),
         },
         {
             color:"user-orange",
             enTitle:"Master",
             ruTitle:"Мастер",
-            precentCutoff:ratingDistribution.masterPercent,
+            precentCutoff:parseFloat(ratingDistribution.masterPercent),
         },
         {
             color:"user-violet",
             enTitle:"Candidate Master",
             ruTitle:"Кандидат в мастера",
-            precentCutoff:ratingDistribution.cmPercent,
+            precentCutoff:parseFloat(ratingDistribution.cmPercent),
         },
         {
             color:"user-blue",
             enTitle:"Expert",
             ruTitle:"Эксперт",
-            precentCutoff:ratingDistribution.expertPercent,
+            precentCutoff:parseFloat(ratingDistribution.expertPercent),
         },
         {
             color:"user-cyan",
             enTitle:"Specialist",
             ruTitle:"Специалист",
-            precentCutoff:ratingDistribution.specialistPercent,
+            precentCutoff:parseFloat(ratingDistribution.specialistPercent),
         },
         {
             color:"user-green",
             enTitle:"Pupil",
             ruTitle:"Ученик",
-            precentCutoff:ratingDistribution.pupilPercent,
+            precentCutoff:parseFloat(ratingDistribution.pupilPercent),
         },
         {
             color:"user-gray",
             enTitle:"Newbie",
             ruTitle:"Новичок",
-            precentCutoff:ratingDistribution.newbiePercent,
+            precentCutoff:parseFloat(ratingDistribution.newbiePercent),
         },
     ]
 }
 
-const getRandomColor = () => {
-    const colorData = getColors()
+const getRandomColor = async () => {
+    const colorData = await getColors();
     var totalPercent = 1;
     for(let idx=0;idx<colorData.length;idx++){
         totalPercent+=colorData[idx].precentCutoff;
@@ -110,7 +109,7 @@ const getRandomColor = () => {
     for(let idx=0;idx<colorData.length;idx++){
         percentIdx-=colorData[idx].precentCutoff;
         if(percentIdx<=0){
-           return colorData[idx];
+            return colorData[idx];
         }
     }
     return colorData[0];
@@ -170,17 +169,17 @@ class RandomizeMagic {
         this.newUsernameCache=newUsernameCacheLocal;
     }
 
-    getColor (username) {
+    async getColor (username) {
         if(!(username in this.userColorsCache)){
-            this.userColorsCache[username]=getRandomColor();
+            this.userColorsCache[username]=await getRandomColor();
         }
         return this.userColorsCache[username];
     }
 
-    updateUser(user) {
+    async updateUser(user) {
         const username = getUsername(user);
         const newUsername = (username in this.newUsernameCache?this.newUsernameCache[username]:username);
-        const newColor = this.getColor(username);
+        const newColor = await this.getColor(username);
         var currentColor = "";
         user.classList.forEach(function(title) {
             if (!title.startsWith("user-")) {
@@ -195,28 +194,23 @@ class RandomizeMagic {
             user["href"]="/profile/"+newUsername;
             user.textContent=newUsername;
         }
-        return user;
     }
 
     updateUsers() {
-        const users = this.users;
-        for (let i = 0; i < users.length; ++i) {
-            users[i]=this.updateUser(users[i]);
+        for (let i = 0; i < this.users.length; ++i) {
+            this.updateUser(this.users[i]);
         }
     }
 
-    run() {
-        console.log('enableShuffleUsernames',settings.enableShuffleUsernames());
-        if(settings.enableShuffleUsernames()){
+    async run() {
+        if(await settings.enableShuffleUsernames()){
             this.populateUsernamesPermutation()
         }
         this.updateUsers();
     }
 }
 
-const main = () => {
+export const main = async () => {
     const r = new RandomizeMagic()
-    r.run();
+    await r.run();
 }
-
-main();

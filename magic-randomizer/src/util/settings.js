@@ -23,12 +23,12 @@ function objectSetterGetter(key, defaultValue) {
   };
 }
 
-export const shuffleUsernames = boolSetterGetter('settings.shuffleUsernames', false);
+export const enableShuffleUsernames = boolSetterGetter('settings.enableshuffleUsernames', false);
 export const ratingDistribution = objectSetterGetter('settings.ratingDistribution', defaultColorDistribution);
 
 export async function getSettings() {
   return {
-    shuffleUsernames: await shuffleUsernames(),
+    enableShuffleUsernames: await enableShuffleUsernames(),
     ratingDistribution: await ratingDistribution(),
   }
 }

@@ -2,10 +2,10 @@ import * as settings from '../util/settings.js';
 
 async function setup() {
   const ratingDistributionForm = document.getElementById("rating-distribution-form");
-  const shuffleUsernames = document.querySelector('#shuffle-usernames');
+  const enableShuffleUsernames = document.querySelector('#enable-shuffle-usernames');
 
   async function update() {
-    shuffleUsernames.checked = await settings.shuffleUsernames();
+    enableShuffleUsernames.checked = await settings.enableShuffleUsernames();
     const ratingDistributionData = await settings.ratingDistribution()
     await populateRatingDistributionFormData(ratingDistributionData);
   }
@@ -16,8 +16,8 @@ async function setup() {
     await update();
   });
 
-  shuffleUsernames.addEventListener('input', async () => {
-    await settings.shuffleUsernames(shuffleUsernames.checked);
+  enableShuffleUsernames.addEventListener('input', async () => {
+    await settings.enableShuffleUsernames(enableShuffleUsernames.checked);
     await update();
   });
 
@@ -49,7 +49,6 @@ const getRatingDistributionFormData = () => ({
 });
 
 const populateRatingDistributionFormData = (data) => {
-  console.log('data',data);
   updateValue('tourist-percent',data.touristPercent);
   updateValue('lgm-percent',data.lgmPercent);
   updateValue('igm-percent',data.igmPercent);
