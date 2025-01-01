@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="settings.css">
+  </head>
+  <body>
+    <ul>
+      <li>
+        <input type="checkbox" id="shuffle-usernames">
+        <label for="shuffle-usernames">Randomly shuffle usernames</label>
+        <br>
+        </li>
+        <li>
+          <summary>
+            Configure the distribution of different ratings you want to see.
+          </summary>
+        <form action="" id="rating-distribution-form">
+          Tourist <input type="number" id="tourist-percent" name="tourist-percent" min="0" max="100"> <br>
+          Legendary Grandmaster <input type="number" id="lgm-percent" name="lgm-percent" min="0" max="100"> <br>
+          International Grandmaster <input type="number" id="igm-percent" name="igm-percent" min="0" max="100"> <br>
+          Grandmaster <input type="number" id="gm-percent" name="gm-percent" min="0" max="100"> <br>
+          International Master <input type="number" id="im-percent" name="im-percent" min="0" max="100"> <br>
+          Master <input type="number" id="master-percent" name="master-percent" min="0" max="100"> <br>
+          Candidate Master <input type="number" id="cm-percent" name="cm-percent" min="0" max="100"> <br>
+          Expert <input type="number" id="expert-percent" name="expert-percent" min="0" max="100"> <br>
+          Specialist <input type="number" id="specialist-percent" name="specialist-percent" min="0" max="100"> <br>
+          Pupil <input type="number" id="pupil-percent" name="pupil-percent" min="0" max="100"> <br>
+          Newbie <input type="number" id="newbie-percent" name="newbie-percent" min="0" max="100"> <br>
+          <input type="submit" name="options-submit" value="Update rating distribution"> <br>
+        </form>
+      </li>
+    </ul>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>
