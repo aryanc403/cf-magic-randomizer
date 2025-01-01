@@ -163,23 +163,30 @@ class RandomizeMagic {
         var shuffledUsernames = Object.keys(usernamesDictionary);
         shuffleArray(shuffledUsernames);
         var newUsernameCacheLocal = {}
-        for (let i = 0; i < users.length; ++i) {
+        for (let i = 0; i < usernames.length; ++i) {
             newUsernameCacheLocal[usernames[i]]=shuffledUsernames[i];
         }
         this.newUsernameCache=newUsernameCacheLocal;
     }
 
-    async getColor (username) {
-        if(!(username in this.userColorsCache)){
-            this.userColorsCache[username]=await getRandomColor();
+    async populateUserColors() {
+        const users = this.users;
+        var usernamesDictionary = {};
+        for (let i = 0; i < users.length; ++i) {
+            usernamesDictionary[getUsername(users[i])]=1;
         }
-        return this.userColorsCache[username];
+        const usernames = Object.keys(usernamesDictionary);
+        var newUserColorsCacheLocal = {}
+        for (let i = 0; i < usernames.length; ++i) {
+            newUserColorsCacheLocal[usernames[i]]=await getRandomColor();
+        }
+        this.userColorsCache=newUserColorsCacheLocal;
     }
 
     async updateUser(user) {
         const username = getUsername(user);
         const newUsername = (username in this.newUsernameCache?this.newUsernameCache[username]:username);
-        const newColor = await this.getColor(username);
+        const newColor = this.userColorsCache[username];
         var currentColor = "";
         user.classList.forEach(function(title) {
             if (!title.startsWith("user-")) {
@@ -206,6 +213,7 @@ class RandomizeMagic {
         if(await settings.enableShuffleUsernames()){
             this.populateUsernamesPermutation()
         }
+        await this.populateUserColors();
         this.updateUsers();
     }
 }
