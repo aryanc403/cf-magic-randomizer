@@ -45,9 +45,6 @@ pack_firefox() {
   copy_magic-randomizer "${copy_dir}"
   cd "${copy_dir}/magic-randomizer"
 
-  # Remove browser_specific_settings from manifest.
-  jq_manifest_replace 'del(.browser_specific_settings)' manifest.json
-
   # Prepare the zip.
   rm -f "../../${release_dir}/${firefox_zip}"
   zip -q -r "../../${release_dir}/${firefox_zip}" .

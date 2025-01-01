@@ -13,7 +13,7 @@
     "storage",
     "activeTab"
   ],
-  "host_permissions":[],
+  "host_permissions": [],
   "content_scripts": [
     {
       "matches": [
@@ -45,7 +45,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "testid@testdomain.com"
+      "id": "{7b5afc7e-1e73-482a-bfb6-5300e1f5ffbc}"
     }
   }
 }
