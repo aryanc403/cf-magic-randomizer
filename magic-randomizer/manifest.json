@@ -17,7 +17,7 @@
     "content_scripts": [
       {
         "matches": ["*://*.codeforces.com/*"],
-        "js": ["src/magic-randomizer.js"]
+        "js": ["src/content/content.js"]
       }
     ],
     "options_ui": {
