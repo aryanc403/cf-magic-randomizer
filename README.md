@@ -1,14 +1,9 @@
 # CF Magic Randomizer
 
+<a href="https://addons.mozilla.org/en-US/firefox/addon/cf-magic-randomizer/"><img src="https://i.imgur.com/WJ9Fhop.png" alt="Mozilla Add-ons" height="48"></a>&emsp;<a href="https://chromewebstore.google.com/detail/cf-magic-randomizer/emfoppboonmmbbjgaofdmncmnbjihijl"><img src="https://i.imgur.com/iswHnpJ.png" alt="Chrome Web Store" height="48"></a>
+
 A userscript to randomize color of codeforces handles.
 Additionally, it also allows one to randomize handles.
-
-## Download instructions
-
-1. Install Tampermonkey for your browser. ([Instructions](https://tampermonkey.net/)).
-2. [**Click this link**](https://github.com/aryanc403/cf-magic-randomizer/raw/main/src/magic-randomizer.user.js) to install CF Magic Randomizer userscript.
-
-3. Reload Codeforces.
 
 ## Changing colors distribution -
 Change `precentCutoff` variable in `colorData` constant.
