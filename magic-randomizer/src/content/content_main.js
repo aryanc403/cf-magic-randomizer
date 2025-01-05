@@ -112,7 +112,7 @@ const getRandomColor = async () => {
             return colorData[idx];
         }
     }
-    return colorData[0];
+    return colorData[8];
 }
 
 const updateColor = (user,newColor) => {

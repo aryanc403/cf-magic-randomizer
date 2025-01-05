@@ -1,6 +1,6 @@
 {
   "name": "CF Magic Randomizer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Randomizes title/color of codeforces users",
   "manifest_version": 3,
   "author": "aryanc403",
